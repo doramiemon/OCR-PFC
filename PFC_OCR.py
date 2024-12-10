@@ -206,42 +206,45 @@ if uploaded_files:
     output_folder = os.getcwd() 
     output_filename = "ocr_results.csv"
     
-    try:
-        if st.button('Run OCR'):
-            output_file, concat_df = ocr_pdf_to_csv(uploaded_files, output_folder, output_filename)
-            st.success(f"OCR completed!")
-            
-            # 初期データフレームをセッションステートに保存
-            st.session_state['df'] = concat_df
+    
+    if st.button('Run OCR'):
+        if not openai_api_key:
+          st.info("Please add your OpenAI API key to continue.")
+          st.stop()
+        
+        output_file, concat_df = ocr_pdf_to_csv(uploaded_files, output_folder, output_filename)
+        st.success(f"OCR completed!")
+        
+        # 初期データフレームをセッションステートに保存
+        st.session_state['df'] = concat_df
 
-        # セッションステートからデータフレームを取得
-        if 'df' in st.session_state:
-            # 編集可能なデータフレームを表示
-            edited_df = st.data_editor(st.session_state['df'], key="editable_dataframe")
-            
-            # 編集内容をセッションステートに保存
-            st.session_state['df'] = edited_df
-            
-            # 編集後のデータを表示
-            st.write("編集後のデータ:")
-            st.dataframe(edited_df)
-            
-            
+    # セッションステートからデータフレームを取得
+    if 'df' in st.session_state:
+        # 編集可能なデータフレームを表示
+        edited_df = st.data_editor(st.session_state['df'], key="editable_dataframe")
+        
+        # 編集内容をセッションステートに保存
+        st.session_state['df'] = edited_df
+        
+        # 編集後のデータを表示
+        st.write("編集後のデータ:")
+        st.dataframe(edited_df)
+        
+        
 
-            # 各列の合計を計算
-            calories_sum  = edited_df["熱量(kcal)"].sum()
-            protein_sum = edited_df["タンパク質(g)"].sum()
-            fat_sum = edited_df["脂質(g)"].sum()
-            carbohydrates_sum = edited_df["炭水化物(g)"].sum()
+        # 各列の合計を計算
+        calories_sum  = edited_df["熱量(kcal)"].sum()
+        protein_sum = edited_df["タンパク質(g)"].sum()
+        fat_sum = edited_df["脂質(g)"].sum()
+        carbohydrates_sum = edited_df["炭水化物(g)"].sum()
 
 
-            col1, col2 = st.columns(2)        
+        col1, col2 = st.columns(2)        
 
-            # PFCバランス計算
-            PFC_calculation(calories_sum, protein_sum, fat_sum, carbohydrates_sum)
+        # PFCバランス計算
+        PFC_calculation(calories_sum, protein_sum, fat_sum, carbohydrates_sum)
 
-    except :
-        st.error("OPENAI_API_KEYを入力してください。")
+    
 
         
 
