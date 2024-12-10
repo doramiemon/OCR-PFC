@@ -6,13 +6,12 @@ import base64
 import requests
 from io import StringIO
 from io import BytesIO
-#import _config
 import matplotlib.pyplot as plt
 
 
 
 
-
+#ネットにあげるときは、apiキーを入力させる
 # open cv 使う
 
 prompt = """
@@ -110,7 +109,7 @@ def encode_image(image):
 def PFC_calculation(calories, protein, fat, carbohydrates):
     
     
-    
+       
     
     Ppre = ((protein*4)/calories)*100
     Fpre = ((fat*9)/calories)*100
@@ -200,18 +199,13 @@ st.write(' PFCバランスとは、食事から摂取するカロリーに占め
 
 uploaded_files = st.file_uploader("Upload PDF files", type=["pdf", "png", "jpeg"], accept_multiple_files=True)
 
-if uploaded_files and not api_key:
-    st.info("Please add your Anthropic API key to continue.")
-
-if uploaded_files and api_key:
+if uploaded_files:
     st.write(f"{len(uploaded_files)} file(s) uploaded.")
 
     output_folder = os.getcwd() 
     output_filename = "ocr_results.csv"
     
-    
     if st.button('Run OCR'):
-        
         output_file, concat_df = ocr_pdf_to_csv(uploaded_files, output_folder, output_filename)
         st.success(f"OCR completed!")
         
@@ -243,8 +237,6 @@ if uploaded_files and api_key:
 
         # PFCバランス計算
         PFC_calculation(calories_sum, protein_sum, fat_sum, carbohydrates_sum)
-
-    
 
         
 
