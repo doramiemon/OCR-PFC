@@ -201,9 +201,9 @@ st.write(' PFCバランスとは、食事から摂取するカロリーに占め
 uploaded_files = st.file_uploader("Upload PDF files", type=["pdf", "png", "jpeg"], accept_multiple_files=True)
 
 if not api_key:
-          st.info("Please add your OpenAI API key to continue.")
-          st.stop()
-          
+    st.info("Please add your OpenAI API key to continue.")
+    st.stop()
+
 if uploaded_files:
     st.write(f"{len(uploaded_files)} file(s) uploaded.")
 
