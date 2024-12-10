@@ -240,7 +240,7 @@ if uploaded_files:
             # PFCバランス計算
             PFC_calculation(calories_sum, protein_sum, fat_sum, carbohydrates_sum)
 
-    except KeyError as e:
+    except :
         st.error("OPENAI_API_KEYを入力してください。")
 
         
