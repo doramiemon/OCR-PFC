@@ -203,7 +203,7 @@ uploaded_files = st.file_uploader("Upload PDF files", type=["pdf", "png", "jpeg"
 if uploaded_files and not api_key:
     st.info("Please add your Anthropic API key to continue.")
 
-if uploaded_files:
+if uploaded_files and api_key:
     st.write(f"{len(uploaded_files)} file(s) uploaded.")
 
     output_folder = os.getcwd() 
