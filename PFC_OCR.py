@@ -200,6 +200,10 @@ st.write(' PFCバランスとは、食事から摂取するカロリーに占め
 
 uploaded_files = st.file_uploader("Upload PDF files", type=["pdf", "png", "jpeg"], accept_multiple_files=True)
 
+if not api_key:
+          st.info("Please add your OpenAI API key to continue.")
+          st.stop()
+          
 if uploaded_files:
     st.write(f"{len(uploaded_files)} file(s) uploaded.")
 
@@ -208,9 +212,6 @@ if uploaded_files:
     
     
     if st.button('Run OCR'):
-        if not api_key:
-          st.info("Please add your OpenAI API key to continue.")
-          st.stop()
         
         output_file, concat_df = ocr_pdf_to_csv(uploaded_files, output_folder, output_filename)
         st.success(f"OCR completed!")
