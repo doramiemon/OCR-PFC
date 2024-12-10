@@ -208,7 +208,7 @@ if uploaded_files:
     
     
     if st.button('Run OCR'):
-        if not openai_api_key:
+        if not api_key:
           st.info("Please add your OpenAI API key to continue.")
           st.stop()
         
