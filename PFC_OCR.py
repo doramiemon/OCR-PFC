@@ -6,7 +6,6 @@ import base64
 import requests
 from io import StringIO
 from io import BytesIO
-
 import matplotlib.pyplot as plt
 
 
