@@ -51,3 +51,4 @@ tqdm==4.66.4
 typing_extensions==4.12.1
 tzdata==2024.1
 urllib3==2.2.1
+matplotlib==3.9.2
